@@ -43,7 +43,7 @@ gueue server -c gueue.yaml
 
 For an example of client package usage see `examples` folder.
 
-Start with a simple example with `examples/simple/consumer/main.go` and `examples/simple/producer/main.go`.
+Start with a simple example in `examples/simple/consumer/main.go` and `examples/simple/producer/main.go`.
 
 ### Development
 
