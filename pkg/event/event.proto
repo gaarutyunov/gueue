@@ -1,0 +1,68 @@
+syntax = "proto3";
+package event;
+
+option go_package = "github.com/gaarutyunov/gueue/pkg/event";
+
+// Event to send to a specific topic
+message EventRequest {
+  // Topic to send event into
+  string topic = 1;
+  // Event correlation id
+  string correlation_id = 2;
+  // Event body
+  bytes message = 3;
+}
+
+// Event response with event id
+message EventResponse {
+  // Event unique id
+  string id = 1;
+}
+
+// Event sent over stream
+message Event {
+  // Event unique id
+  string id = 1;
+  // Topic to send event into
+  string topic = 2;
+  // Event correlation id
+  string correlation_id = 3;
+  // Event body
+  bytes message = 4;
+}
+
+// Request for topic subscription
+message TopicRequest {
+  // Topic names
+  repeated string names = 1;
+  // The subscribing consumer id
+  string consumer_id = 2;
+  // Size of buffer
+  uint32 buffer = 3;
+}
+
+// Unbind consumer from topic request
+message UnbindRequest {
+  // Consumer id to unbind
+  string consumer_id = 1;
+}
+
+// Response with operation status
+message StatusResponse {
+  // Operation status
+  uint32 status = 1;
+}
+
+// Service that sends event to topics
+service Producer {
+  // Publish an event into a topic
+  rpc Publish(EventRequest) returns (EventResponse) {}
+}
+
+// Service that consumes events from topics
+service Consumer {
+  // Subscribe to events from topics
+  rpc Consume(TopicRequest) returns (stream Event) {}
+  // Unbind consumer from topics
+  rpc Unbind(UnbindRequest) returns (StatusResponse) {}
+}
