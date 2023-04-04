@@ -10,6 +10,6 @@ RUN make build
 
 FROM ubuntu:latest
 
-COPY --from=build /dist/gueue /opt/gueue
+COPY --from=build /build/dist/gueue /opt/gueue
 
 CMD ["/opt/gueue", "-c", "/etc/gueue/queue.yaml"]
