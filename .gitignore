@@ -23,3 +23,5 @@ go.work
 
 gueue.yaml
 dist
+.idea
+.vscode
